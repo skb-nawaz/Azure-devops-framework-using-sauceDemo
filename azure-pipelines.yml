@@ -17,7 +17,7 @@ steps:
 
 - script: npx playwright test
   env:
-    SECRET_KEY: skbnawaznusrathfathimaskbnawaznusrathfathimanus
+    SECRET_KEY: $(SECRET_KEY)
     USER_NAME: $(USER_NAME)
     PASSWORD: $(PASSWORD)
   displayName: 'Run playwright test'
