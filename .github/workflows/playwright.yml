@@ -23,16 +23,18 @@ jobs:
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-
+      
+    - name: Debug Environment Variables
+      run: |
+        echo "USER_NAME exists: ${{ secrets.USER_NAME != '' }}"
+        echo "PASSWORD exists: ${{ secrets.PASSWORD != '' }}"
+        echo "SECRET_KEY exists: ${{ secrets.SECRET_KEY != '' }}"
+        
     - name: Run Playwright tests
       run: npx playwright test
       env:
         USER_NAME: ${{ secrets.USER_NAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-    - name: Debug Environment Variables
-      run: |
-        echo "USER_NAME exists: ${{ secrets.USER_NAME != '' }}"
-        echo "PASSWORD exists: ${{ secrets.PASSWORD != '' }}"
-        echo "SECRET_KEY exists: ${{ secrets.SECRET_KEY != '' }}"
+    
 
