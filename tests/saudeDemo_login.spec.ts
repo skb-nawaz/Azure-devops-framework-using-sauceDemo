@@ -1,10 +1,14 @@
-/* import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import CommonUtils from "../utils/commonUtils";
 
 import dotenv from "dotenv";
 
 test("sauce demo login", async ({ page }) => {
   const commonUtils = new CommonUtils();
+  /*   const enc_userName = commonUtils.encryptData("standard_user");
+  const enc_passWord = commonUtils.encryptData("secret_sauce");
+  console.log("enc_userName", enc_userName);
+  console.log("enc_pass", enc_passWord); */
   const username = commonUtils.decryptData(process.env.USER_NAME!);
   const password = commonUtils.decryptData(process.env.PASSWORD!);
   await page.goto("https://www.saucedemo.com/");
@@ -15,7 +19,7 @@ test("sauce demo login", async ({ page }) => {
     page.locator('[data-test="inventory-item"]').first(),
   ).toBeVisible();
 });
- */
+
 /* 
 import { test, expect } from "@playwright/test";
 import CommonUtils from "../utils/commonUtils";
@@ -80,7 +84,7 @@ test("sauce demo login", async ({ page }) => {
 });
  */
 
-import { test } from "@playwright/test";
+/* import { test } from "@playwright/test";
 import CommonUtils from "../utils/commonUtils";
 
 test("crypto check", async () => {
@@ -93,4 +97,4 @@ test("crypto check", async () => {
   const decrypted = commonUtils.decryptData(encrypted);
 
   console.log("Decrypted:", decrypted);
-});
+}); */
