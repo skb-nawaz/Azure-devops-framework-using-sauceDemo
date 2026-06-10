@@ -1,35 +1,41 @@
 import CryptoJS from "crypto-js";
 
-export default class CommonUtils {
+export default class Commonutils {
   private secretKey: string;
 
+  /**
+   * Initilizing secretKey
+   */
   constructor() {
-    console.log("SECRET_KEY from process.env:", process.env.SECRET_KEY);
-    this.secretKey = process.env.SECRET_KEY ?? "";
-
+    this.secretKey = process.env.SECRET_KEY ? process.env.SECRET_KEY : "";
     if (!this.secretKey) {
-      throw new Error(
-        process.env.CI
-          ? "SECRET_KEY is missing in Azure DevOps pipeline variables"
-          : "SECRET_KEY is missing in env-files/.env",
-      );
+      throw new Error("SECRET_KEY is missing in .env file");
     }
   }
-
   /**
-   * Encrypt data
+   * This methods encrypt sensitive data from string
+   * @param data
+   * @returns
    */
   public encryptData(data: string): string {
-    return CryptoJS.AES.encrypt(data, this.secretKey).toString();
+    const encrypted_data = CryptoJS.AES.encrypt(
+      data,
+      this.secretKey,
+    ).toString();
+    // console.log("secretKey", this.secretKey);
+    return encrypted_data;
   }
-
   /**
-   * Decrypt data
+   * This methods provides decrypted data in string format
+   * @param enc_data
+   * @returns
    */
-  public decryptData(encData: string): string {
-    console.log("this is secretkey", this.secretKey);
-    return CryptoJS.AES.decrypt(encData, this.secretKey).toString(
+  public decryptData(enc_data: string) {
+    //console.log("this is from common utils", enc_data, this.secretKey);
+    const decryptData = CryptoJS.AES.decrypt(enc_data, this.secretKey).toString(
       CryptoJS.enc.Utf8,
     );
+
+    return decryptData;
   }
 }
