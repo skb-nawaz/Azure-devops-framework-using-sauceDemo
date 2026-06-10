@@ -9,11 +9,61 @@ steps:
   inputs:
     version: '20.x'
 
+# Debug Step 1: Check all variables are set in Azure DevOps
+- script: |
+    echo "========================================="
+    echo "DEBUG: Checking if variables exist in Azure DevOps"
+    echo "========================================="
+    echo "SECRET_KEY exists: $([ -n '$(SECRET_KEY)' ] && echo 'YES' || echo 'NO')"
+    echo "USER_NAME exists: $([ -n '$(USER_NAME)' ] && echo 'YES' || echo 'NO')"
+    echo "PASSWORD exists: $([ -n '$(PASSWORD)' ] && echo 'YES' || echo 'NO')"
+  displayName: 'Debug - Check variables in Azure DevOps'
+
+# Debug Step 2: Check what variables are being passed to the script
+- script: |
+    echo "========================================="
+    echo "DEBUG: Checking environment variables in script"
+    echo "========================================="
+    echo "SECRET_KEY length: ${#SECRET_KEY}"
+    echo "USER_NAME length: ${#USER_NAME}"
+    echo "PASSWORD length: ${#PASSWORD}"
+    echo ""
+    echo "First 5 chars of USER_NAME: ${USER_NAME:0:5}"
+    echo "First 5 chars of PASSWORD: ${PASSWORD:0:5}"
+    echo ""
+    if [ -z "$SECRET_KEY" ]; then
+      echo "❌ SECRET_KEY is EMPTY or NOT PASSED"
+      echo "This means the variable is not being passed from Azure DevOps"
+    else
+      echo "✅ SECRET_KEY has value (length: ${#SECRET_KEY})"
+    fi
+  env:
+    SECRET_KEY: $(SECRET_KEY)
+    USER_NAME: $(USER_NAME)
+    PASSWORD: $(PASSWORD)
+  displayName: 'Debug - Check passed environment variables'
+
 - script: npm ci
   displayName: 'Install playwright dependencies'
 
 - script: npx playwright install --with-deps
   displayName: 'Install Playwright Browsers'
+
+# Debug Step 3: Check variables before test runs
+- script: |
+    echo "========================================="
+    echo "DEBUG: Final check before running tests"
+    echo "========================================="
+    echo "SECRET_KEY is set: $([ -n '$SECRET_KEY' ] && echo 'YES' || echo 'NO')"
+    echo "SECRET_KEY length: ${#SECRET_KEY}"
+    echo ""
+    echo "All environment variables starting with SECRET/USER/PASS:"
+    env | grep -E "SECRET|USER_NAME|PASSWORD" || echo "No matching env vars found"
+  env:
+    SECRET_KEY: $(SECRET_KEY)
+    USER_NAME: $(USER_NAME)
+    PASSWORD: $(PASSWORD)
+  displayName: 'Debug - Final check before tests'
 
 - script: npx playwright test
   env:
