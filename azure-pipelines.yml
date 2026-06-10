@@ -12,7 +12,7 @@ steps:
 # Debug step - check if variables exist
 - script: |
     echo "Checking variables..."
-    if [ -n "$SECRET_KEY" ]; then
+    if [ -n "$(SECRET_KEY)" ]; then
       echo "✅ SECRET_KEY is set (length: ${#SECRET_KEY})"
     else
       echo "❌ SECRET_KEY is NOT set"
