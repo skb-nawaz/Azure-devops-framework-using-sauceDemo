@@ -4,6 +4,7 @@ export default class CommonUtils {
   private secretKey: string;
 
   constructor() {
+    console.log("SECRET_KEY from process.env:", process.env.SECRET_KEY);
     this.secretKey = process.env.SECRET_KEY ?? "";
 
     if (!this.secretKey) {
