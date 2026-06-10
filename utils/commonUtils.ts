@@ -8,7 +8,11 @@ export default class CommonUtils {
     this.secretKey = process.env.SECRET_KEY ?? "";
 
     if (!this.secretKey) {
-      throw new Error("SECRET_KEY is missing in .env");
+      throw new Error(
+        process.env.CI
+          ? "SECRET_KEY is missing in Azure DevOps pipeline variables"
+          : "SECRET_KEY is missing in env-files/.env",
+      );
     }
   }
 
