@@ -6,15 +6,6 @@ import path from "path";
  * Load .env only when running locally.
  * In CI (Azure DevOps), use pipeline variables.
  */
-if (!process.env.CI) {
-  dotenv.config({
-    path: path.resolve(__dirname, "env-files/.env"),
-  });
-
-  console.log("Running locally - loaded variables from .env");
-} else {
-  console.log("Running in CI - using Azure DevOps environment variables");
-}
 
 export default defineConfig({
   testDir: "./tests",
