@@ -1,22 +1,41 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 pool:
   vmImage: ubuntu-latest
 
-
 steps:
 - task: UseNode@1
   inputs:
     version: '20.x'
 
+# Debug step - check if variables exist
+- script: |
+    echo "Checking variables..."
+    if [ -n "$SECRET_KEY" ]; then
+      echo "✅ SECRET_KEY is set (length: ${#SECRET_KEY})"
+    else
+      echo "❌ SECRET_KEY is NOT set"
+    fi
+    
+    if [ -n "$USER_NAME" ]; then
+      echo "✅ USER_NAME is set (length: ${#USER_NAME})"
+    else
+      echo "❌ USER_NAME is NOT set"
+    fi
+    
+    if [ -n "$PASSWORD" ]; then
+      echo "✅ PASSWORD is set (length: ${#PASSWORD})"
+    else
+      echo "❌ PASSWORD is NOT set"
+    fi
+  env:
+    SECRET_KEY: $(SECRET_KEY)
+    USER_NAME: $(USER_NAME)
+    PASSWORD: $(PASSWORD)
+
 - script: npm ci
-  displayName: 'Install playwright dependencis'
+  displayName: 'Install playwright dependencies'
 
 - script: npx playwright install --with-deps
   displayName: 'Install Playwright Browsers'
@@ -26,5 +45,3 @@ steps:
     SECRET_KEY: $(SECRET_KEY)
     USER_NAME: $(USER_NAME)
     PASSWORD: $(PASSWORD)
-
-
