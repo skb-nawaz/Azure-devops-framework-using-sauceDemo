@@ -16,7 +16,7 @@ test("sauce demo login", async ({ page }) => {
   ).toBeVisible();
 });
  */
-
+/* 
 import { test, expect } from "@playwright/test";
 import CommonUtils from "../utils/commonUtils";
 
@@ -77,4 +77,20 @@ test("sauce demo login", async ({ page }) => {
   await expect(
     page.locator('[data-test="inventory-item"]').first(),
   ).toBeVisible();
+});
+ */
+
+import { test } from "@playwright/test";
+import CommonUtils from "../utils/commonUtils";
+
+test("crypto check", async () => {
+  const commonUtils = new CommonUtils();
+
+  const encrypted = commonUtils.encryptData("hello");
+
+  console.log("Encrypted:", encrypted);
+
+  const decrypted = commonUtils.decryptData(encrypted);
+
+  console.log("Decrypted:", decrypted);
 });
