@@ -28,7 +28,7 @@ steps:
   - script: npx playwright install --with-deps
     displayName: 'Install Playwright Browsers'
 
-  - script: SECRET_KEY=skbnawaznusrathfathimaskbnawaznusrathfathimanus npx playwright test
+  - script: SECRET_KEY=skbnawaznusrathfathimaskbnawaznusrathfathimanus npm run ${{parameters.SCRIPT_RUNNER}}
     env:
       USER_NAME: $(USER_NAME)
       PASSWORD: $(PASSWORD)
