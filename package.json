@@ -9,7 +9,7 @@
     "test_cr_hd_dev": "cross-env npx playwright test --project=chromium --headed --grep=@DEV",
     "test_ff_hd": "cross-env npx playwright test --project=firefox --headed",
     "test_ff_hl": "cross-env npx playwright test --project=firefox",
-    "test_ff_hd_dev": "cross-env npx playwright test --project=chromium --headed --grep=@UAT"
+    "test_ff_hd_UAT": "cross-env npx playwright test --project=chromium --headed --grep=@UAT"
   },
   "keywords": [],
   "author": "",
