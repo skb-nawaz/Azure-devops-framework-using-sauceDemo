@@ -8,14 +8,12 @@ parameters:
   - name: SCRIPT_RUNNER
     displayName: 'Test run in chromium headed mode'
     type: string
-    default: 'test_cr_hd'
+    default: 'test_cr_hl'
     values:
-      - 'test_cr_hd'
       - 'test_cr_hl'
-      - 'test_ff_hd_UAT'
+      - 'test_ff_hl_UAT'
       - 'test_ff_hl'
-      - 'test_cr_hd_dev'
-      - 'test-ff-hd'
+      - 'test_cr_hl_dev'
 
 steps:
   - task: UseNode@1
