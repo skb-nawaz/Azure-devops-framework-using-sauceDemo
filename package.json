@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test_cr_hd": "cross-env npx playwright test --project=chromium --headed",
+    "test_cr_hl": "cross-env npx playwright test --project=chromium",
+    "test_cr_hd_dev": "cross-env npx playwright test --project=chromium --headed --grep=@DEV",
+    "test_ff_hd": "cross-env npx playwright test --project=firefox --headed",
+    "test_ff_hl": "cross-env npx playwright test --project=firefox",
+    "test_ff_hd_dev": "cross-env npx playwright test --project=chromium --headed --grep=@UAT"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

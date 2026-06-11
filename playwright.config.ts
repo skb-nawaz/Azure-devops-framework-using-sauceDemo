@@ -7,6 +7,14 @@ import path from "path";
  * In CI (Azure DevOps), use pipeline variables.
  */
 
+dotenv.config({ path: path.resolve(__dirname, "env-files/.env") });
+
+/* dotenv.config({
+  path: process.env.ENV_NAME
+    ? `./env-files/.env.${process.env.ENV_NAME}`
+    : "./env-files/.env.dev",
+}); */
+
 export default defineConfig({
   testDir: "./tests",
 
@@ -37,10 +45,10 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
 
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
 
     // {
     //   name: "webkit",
