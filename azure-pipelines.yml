@@ -1,22 +1,35 @@
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
 
+parameters:
+  - name: SCRIPT_RUNNER
+    displayName: 'Test run in chromium headed mode'
+    type: string
+    default: 'test_cr_hd'
+    values:
+      - 'test_cr_hd'
+      - 'test_cr_hl'
+      - 'test_ff_hd_UAT'
+      - 'test_ff_hl'
+      - 'test_cr_hd_dev'
+      - 'test-ff-hd'
+
 steps:
-- task: UseNode@1
-  inputs:
-    version: '20.x'
+  - task: UseNode@1
+    inputs:
+      version: '20.x'
 
-- script: npm ci
-  displayName: 'Install playwright dependencies'
+  - script: npm ci
+    displayName: 'Install playwright dependencies'
 
-- script: npx playwright install --with-deps
-  displayName: 'Install Playwright Browsers'
+  - script: npx playwright install --with-deps
+    displayName: 'Install Playwright Browsers'
 
-- script: SECRET_KEY=skbnawaznusrathfathimaskbnawaznusrathfathimanus npx playwright test
-  env:
-    USER_NAME: $(USER_NAME)
-    PASSWORD: $(PASSWORD)
-  displayName: 'Run playwright test'
+  - script: SECRET_KEY=skbnawaznusrathfathimaskbnawaznusrathfathimanus npx playwright test
+    env:
+      USER_NAME: $(USER_NAME)
+      PASSWORD: $(PASSWORD)
+    displayName: 'Run playwright test'
