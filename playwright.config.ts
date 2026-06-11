@@ -31,7 +31,10 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use */
-  reporter: [["html", { open: "never" }]],
+  reporter: [
+    ["html", { open: "never" }],
+    ["junit", { outputFile: "test-results/junit-report.xml" }],
+  ],
 
   /* Shared settings for all projects */
   use: {
